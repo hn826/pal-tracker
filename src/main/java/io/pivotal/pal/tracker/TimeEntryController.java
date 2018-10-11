@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-//@RequestMapping("/time-entries")
+@RequestMapping("/time-entries")
 public class TimeEntryController {
 
     private TimeEntryRepository timeEntryRepository;
@@ -18,7 +18,7 @@ public class TimeEntryController {
     }
 
     @ResponseBody
-    @PostMapping("/time-entries")
+    @PostMapping
     public ResponseEntity create(@RequestBody TimeEntry timeEntryToCreate) {
         TimeEntry createdTimeEntry = timeEntryRepository.create(timeEntryToCreate);
         response = new ResponseEntity<>(createdTimeEntry, HttpStatus.CREATED);
@@ -27,7 +27,7 @@ public class TimeEntryController {
     }
 
     @ResponseBody
-    @GetMapping("/time-entries/{longValue}")
+    @GetMapping("/{longValue}")
     public ResponseEntity read(@PathVariable long longValue) {
 
         TimeEntry readTimeEntry = timeEntryRepository.find(longValue);
@@ -42,7 +42,7 @@ public class TimeEntryController {
     }
 
     @ResponseBody
-    @GetMapping("/time-entries")
+    @GetMapping
     public ResponseEntity list() {
         List<TimeEntry> list = timeEntryRepository.list();
         response = new ResponseEntity(list, HttpStatus.OK);
@@ -50,7 +50,7 @@ public class TimeEntryController {
     }
 
     @ResponseBody
-    @PutMapping("/time-entries/{longValue}")
+    @PutMapping("/{longValue}")
     public ResponseEntity update(@PathVariable long longValue, @RequestBody TimeEntry timeEntry) {
 
         TimeEntry updateTimeEntry = timeEntryRepository.update(longValue, timeEntry);
@@ -64,7 +64,7 @@ public class TimeEntryController {
         return response;
     }
 
-    @DeleteMapping("/time-entries/{longValue}")
+    @DeleteMapping("/{longValue}")
     public ResponseEntity delete(@PathVariable long longValue) {
 
         timeEntryRepository.delete(longValue);
